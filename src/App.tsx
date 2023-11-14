@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { routes } from './routes'
 import { DefaultLayout } from './layout/DefaultLayout'
 import { ErrorPage } from './pages/error-page'
+import { ThemeContextProvider } from './hook/useTheme'
 
 const router = createBrowserRouter([
   {
@@ -13,5 +14,9 @@ const router = createBrowserRouter([
 ])
 
 export function App() {
-  return <RouterProvider router={router} />
+  return (
+    <ThemeContextProvider>
+      <RouterProvider router={router} />
+    </ThemeContextProvider>
+  )
 }
