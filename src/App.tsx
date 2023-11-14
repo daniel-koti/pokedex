@@ -1,8 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { routes } from './routes'
 import { DefaultLayout } from './layout/DefaultLayout'
 import { ErrorPage } from './pages/error-page'
-import { ThemeContextProvider } from './hook/useTheme'
+import { ThemeContextProvider } from './context/themeContext'
 
 const router = createBrowserRouter([
   {
@@ -13,10 +14,14 @@ const router = createBrowserRouter([
   },
 ])
 
+const queryClient = new QueryClient()
+
 export function App() {
   return (
-    <ThemeContextProvider>
-      <RouterProvider router={router} />
-    </ThemeContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeContextProvider>
+        <RouterProvider router={router} />
+      </ThemeContextProvider>
+    </QueryClientProvider>
   )
 }

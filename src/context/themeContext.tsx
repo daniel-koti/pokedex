@@ -1,10 +1,4 @@
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 
 export const ThemeContext = createContext(
   {} as { isDark: boolean; onToggleTheme: () => void },
@@ -32,13 +26,4 @@ export function ThemeContextProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   )
-}
-
-export function useTheme() {
-  const { isDark, onToggleTheme } = useContext(ThemeContext)
-
-  return {
-    isDark,
-    onToggleTheme,
-  }
 }
