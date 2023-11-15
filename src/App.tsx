@@ -4,6 +4,7 @@ import { routes } from './routes'
 import { DefaultLayout } from './layout/DefaultLayout'
 import { ErrorPage } from './pages/error-page'
 import { ThemeContextProvider } from './context/themeContext'
+import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeContextProvider>
         <RouterProvider router={router} />
+        <Toaster />
       </ThemeContextProvider>
     </QueryClientProvider>
   )

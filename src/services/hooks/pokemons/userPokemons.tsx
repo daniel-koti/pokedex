@@ -1,4 +1,5 @@
 import { api } from '@/services/api'
+import { Pokemon } from '@/shared/pokemon'
 import { useQuery } from '@tanstack/react-query'
 
 interface AxiosResponse {
@@ -11,12 +12,6 @@ interface AxiosResponse {
 async function getPokemons() {
   const { data } = await api.get<AxiosResponse>('/pokemon')
 
-  if (!data) {
-    return {
-      pokemons: [],
-    }
-  }
-
   try {
     const pokemonPromises = data.results.map((item) => {
       return fetch(item.url)
@@ -24,7 +19,7 @@ async function getPokemons() {
         .then((data) => data)
     })
 
-    const pokemons = await Promise.all(pokemonPromises)
+    const pokemons = await Promise.all<Pokemon>(pokemonPromises)
 
     return {
       pokemons,
@@ -39,6 +34,5 @@ export function usePokemons() {
   return useQuery({
     queryKey: ['pokemons'],
     queryFn: getPokemons,
-    staleTime: 1000 * 5,
   })
 }
