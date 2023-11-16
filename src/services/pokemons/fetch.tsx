@@ -1,6 +1,5 @@
 import { api } from '@/services/api'
 import { Pokemon } from '@/shared/pokemon'
-import { useQuery } from '@tanstack/react-query'
 
 interface AxiosResponse {
   count: number
@@ -9,7 +8,7 @@ interface AxiosResponse {
   results: Array<{ name: string; url: string }>
 }
 
-async function getPokemons() {
+export async function getPokemons() {
   const { data } = await api.get<AxiosResponse>('/pokemon')
 
   try {
@@ -23,6 +22,9 @@ async function getPokemons() {
 
     return {
       pokemons,
+      count: data.count,
+      previous: data.previous,
+      next: data.next,
     }
   } catch (error) {
     console.error('Error fetching Pokemon data', error)
@@ -30,9 +32,25 @@ async function getPokemons() {
   }
 }
 
-export function usePokemons() {
-  return useQuery({
-    queryKey: ['pokemons'],
-    queryFn: getPokemons,
-  })
+export async function getAllPokemons() {
+  try {
+    const response = await api.get<AxiosResponse>('/pokemon?limit=750&offset=0')
+
+    const pokemonsPromise = response.data.results.map((pokemon) => {
+      return fetch(pokemon.url)
+        .then((response) => response.json())
+        .then((data) => data)
+    })
+
+    const allPokemonsFounded = await Promise.all<Pokemon>(pokemonsPromise)
+
+    return {
+      allPokemonsFounded,
+    }
+  } catch (error) {
+    console.log(error)
+    return {
+      allPokemonsFounded: [],
+    }
+  }
 }

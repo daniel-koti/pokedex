@@ -4,6 +4,7 @@ import { routes } from './routes'
 import { DefaultLayout } from './layout/DefaultLayout'
 import { ErrorPage } from './pages/error-page'
 import { ThemeContextProvider } from './context/themeContext'
+import { PokemonProvider } from './context/pokemonContext'
 import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
@@ -20,10 +21,12 @@ const queryClient = new QueryClient()
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeContextProvider>
-        <RouterProvider router={router} />
-        <Toaster />
-      </ThemeContextProvider>
+      <PokemonProvider>
+        <ThemeContextProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </ThemeContextProvider>
+      </PokemonProvider>
     </QueryClientProvider>
   )
 }

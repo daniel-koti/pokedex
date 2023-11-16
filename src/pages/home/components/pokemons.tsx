@@ -1,14 +1,13 @@
 import { Pokemon } from '@/components/pokemon'
 
 import { SkeletonPokemon } from './skeleton'
-import { usePokemons } from '@/services/hooks/pokemons/userPokemons'
+import { usePokemons } from '@/hooks/pokemons/usePokemons'
 
 export function Pokemons() {
   const { data, isLoading, error } = usePokemons()
-  return (
-    <div>
-      <strong className="text-foreground">Pokemons</strong>
 
+  return (
+    <>
       {isLoading || !data ? (
         <SkeletonPokemon />
       ) : error ? (
@@ -20,6 +19,6 @@ export function Pokemons() {
           ))}
         </div>
       )}
-    </div>
+    </>
   )
 }
