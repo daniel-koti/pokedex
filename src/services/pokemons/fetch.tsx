@@ -8,8 +8,10 @@ interface AxiosResponse {
   results: Array<{ name: string; url: string }>
 }
 
-export async function getPokemons() {
-  const { data } = await api.get<AxiosResponse>('/pokemon')
+export async function getPokemons(pageParam: string) {
+  const { data } = await api.get<AxiosResponse>(
+    `/pokemon?offset=${pageParam}&limit=20`,
+  )
 
   try {
     const pokemonPromises = data.results.map((item) => {

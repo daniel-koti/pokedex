@@ -5,7 +5,6 @@ import { DefaultLayout } from './layout/DefaultLayout'
 import { ErrorPage } from './pages/error-page'
 import { ThemeContextProvider } from './context/themeContext'
 import { PokemonProvider } from './context/pokemonContext'
-import { Toaster } from 'sonner'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +23,6 @@ export function App() {
       <PokemonProvider>
         <ThemeContextProvider>
           <RouterProvider router={router} />
-          <Toaster />
         </ThemeContextProvider>
       </PokemonProvider>
     </QueryClientProvider>

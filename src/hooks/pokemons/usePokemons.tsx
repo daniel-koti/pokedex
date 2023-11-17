@@ -1,9 +1,13 @@
 import { getPokemons } from '@/services/pokemons/fetch'
-import { useQuery } from '@tanstack/react-query'
+import { getOffset } from '@/utils/getOffset'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 export function usePokemons() {
-  return useQuery({
+  return useInfiniteQuery({
     queryKey: ['pokemons'],
-    queryFn: getPokemons,
+    queryFn: ({ pageParam }) => getPokemons(pageParam),
+    initialPageParam: '0',
+    getNextPageParam: (page) =>
+      getOffset(page.next ? page.next : '') || undefined,
   })
 }
