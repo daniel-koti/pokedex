@@ -3,18 +3,7 @@ import { Input } from '@/components/ui/input'
 import { Pokemons } from './components/pokemons'
 import { Pokemon } from '@/components/pokemon'
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-
 import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
-
-const orderList = ['+ Higher', '+ Heaviest']
 
 export function Home() {
   const [search, setSearch] = useState('')
@@ -38,23 +27,6 @@ export function Home() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
-        </div>
-
-        <div className="mt-6">
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Order by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {orderList.map((item) => (
-                  <SelectItem key={item} value={item}>
-                    {item}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
         </div>
       </aside>
 
