@@ -3,6 +3,8 @@ export interface Pokemon {
   name: string
   weight: number
   height: number
+  order: number
+  base_experience: number
   sprites: {
     other: {
       dream_world: {
@@ -14,6 +16,12 @@ export interface Pokemon {
     ability: {
       name: string
       url: string
+    }
+  }[]
+  stats: {
+    base_stat: number
+    stat: {
+      name: string
     }
   }[]
 }
