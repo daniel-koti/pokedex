@@ -4,20 +4,24 @@ import { SkeletonDetails } from './components/skeleton'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Slider } from '@/components/ui/slider'
+import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
 
 export function Details() {
   const { slug } = useParams()
+  const { currentPokemon } = useAllPokemons()
 
   const { data, isFetching } = usePokemon(String(slug))
 
-  if (isFetching) {
+  const pokemon = currentPokemon || data?.pokemon
+
+  if (isFetching && !currentPokemon) {
     return <SkeletonDetails />
   }
 
   return (
     <section className="mt-8 grid h-full grid-cols-2 items-center gap-8">
       <img
-        src={data?.pokemon.sprites.other.dream_world.front_default}
+        src={pokemon?.sprites.other.dream_world.front_default}
         alt=""
         className="h-[480px] w-[480px]"
       />
@@ -28,31 +32,27 @@ export function Details() {
             Name:
           </strong>
           <span className="text-2xl capitalize text-foreground">
-            {data?.pokemon.name}
+            {pokemon?.name}
           </span>
         </div>
         <div className="flex items-center gap-3">
           <strong className="text-2xl text-foreground text-orange-500">
             Weight:
           </strong>
-          <span className="text-2xl text-foreground">
-            {data?.pokemon.weight}Kg
-          </span>
+          <span className="text-2xl text-foreground">{pokemon?.weight}Kg</span>
         </div>
         <div className="flex items-center gap-3">
           <strong className="text-2xl text-foreground text-orange-500">
             Height:
           </strong>
-          <span className="text-2xl text-foreground">
-            {data?.pokemon.height}M
-          </span>
+          <span className="text-2xl text-foreground">{pokemon?.height}M</span>
         </div>
         <div className="flex items-center gap-3">
           <strong className="text-2xl text-foreground text-orange-500">
             XP:
           </strong>
           <span className="text-2xl capitalize text-foreground">
-            {data?.pokemon.base_experience}
+            {pokemon?.base_experience}
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -60,7 +60,7 @@ export function Details() {
             Power:
           </strong>
           <div className="flex flex-wrap items-center gap-4">
-            {data?.pokemon.abilities.map((item) => (
+            {pokemon?.abilities.map((item) => (
               <Badge
                 variant="default"
                 key={item.ability.url}
@@ -73,7 +73,7 @@ export function Details() {
         </div>
         <Separator />
         <div className="flex flex-col gap-2">
-          {data?.pokemon.stats.map((item) => {
+          {pokemon?.stats.map((item) => {
             const value = [item.base_stat]
             return (
               <div key={item.base_stat} className="flex flex-col gap-2">
