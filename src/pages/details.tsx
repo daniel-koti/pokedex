@@ -1,3 +1,7 @@
+import { useParams } from 'react-router-dom'
+
 export function Details() {
-  return <strong>Details</strong>
+  const { slug } = useParams()
+
+  return <strong className="text-foreground">{slug}</strong>
 }

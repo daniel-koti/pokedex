@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Pokemon as PokeProps } from '@/shared/pokemon'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
@@ -8,6 +10,12 @@ interface PokemonProps {
 }
 
 export function Pokemon({ data }: PokemonProps) {
+  const navigate = useNavigate()
+
+  function handleNavigateToDetail(pokemonName: string) {
+    navigate(`/details/${pokemonName}`)
+  }
+
   return (
     <Card className="flex flex-col">
       {data.sprites.other.dream_world.front_default ? (
@@ -40,7 +48,11 @@ export function Pokemon({ data }: PokemonProps) {
           </div>
         </div>
 
-        <Button variant="outline" className="mt-4">
+        <Button
+          variant="outline"
+          className="mt-4"
+          onClick={() => handleNavigateToDetail(data.name)}
+        >
           Details
         </Button>
       </div>

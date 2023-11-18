@@ -8,7 +8,7 @@ export const routes: RouteObject[] = [
     element: <Home />,
   },
   {
-    path: 'details',
+    path: 'details/:slug',
     element: <Details />,
   },
 ]

@@ -1,19 +1,21 @@
 import { ReactNode, createContext } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Pokemon } from '@/shared/pokemon'
-import { getAllPokemons } from '@/services/pokemons/fetch'
+import { Pokemon as PokemonProps } from '@/shared/pokemon'
 import { Loading } from '@/components/loading'
+import { Pokemon } from '@/services/Pokemon.service'
 
 interface PokemonContextProps {
-  allPokemons: Pokemon[]
+  allPokemons: PokemonProps[]
 }
 
 export const PokemonContext = createContext({} as PokemonContextProps)
 
+const pokemon = new Pokemon()
+
 export function PokemonProvider({ children }: { children: ReactNode }) {
   const { data, error, isLoading } = useQuery({
     queryKey: ['all-pokemons'],
-    queryFn: getAllPokemons,
+    queryFn: pokemon.getAllPokemons,
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
 
