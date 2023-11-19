@@ -7,6 +7,7 @@ export function Loading() {
       <span className="mt-4 text-sm font-semibold text-zinc-950">
         Starting app...
       </span>
+      <span>By @daniel-moniz 🧡</span>
     </div>
   )
 }

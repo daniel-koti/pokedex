@@ -20,7 +20,7 @@ export function Pokemon({ data }: PokemonProps) {
   }
 
   return (
-    <Card className="flex flex-col">
+    <Card className="group relative flex flex-col">
       {data.sprites.other.dream_world.front_default ? (
         <img
           className="mx-auto -mt-8 h-40 w-40"

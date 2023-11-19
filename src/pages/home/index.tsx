@@ -14,8 +14,8 @@ export function Home() {
   )
 
   return (
-    <section className="flex items-start gap-8">
-      <aside className="w-60">
+    <section className="flex flex-col items-start gap-8 md:flex-row">
+      <aside className="w-full md:w-60">
         <strong className="inline-flex items-center gap-2 text-foreground ">
           Filters
         </strong>
@@ -23,20 +23,20 @@ export function Home() {
         <div className="mt-8 space-y-2">
           <Input
             placeholder="Search by name..."
-            className="text-foreground"
+            className="w-full text-foreground"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
         </div>
       </aside>
 
-      <main className="flex-1">
+      <main className="w-full flex-1 ">
         <strong className="text-foreground ">Pokemons</strong>
 
         {search.length <= 0 ? (
           <Pokemons />
         ) : (
-          <div className="mt-8 grid grid-cols-3 gap-12">
+          <div className="sm:md-6 mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
             {filteredPokemons.map((pokemon) => (
               <Pokemon key={pokemon.id} data={pokemon} />
             ))}

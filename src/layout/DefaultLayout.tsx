@@ -9,12 +9,12 @@ export function DefaultLayout() {
 
   return (
     <section
-      className={`h-screen w-full overflow-auto bg-background py-8 ${
+      className={`h-screen w-full overflow-auto bg-background px-4 py-8 ${
         isDark ? 'dark' : ''
       }`}
     >
       <div className="mx-auto  max-w-7xl">
-        <header className="flex items-center justify-between ">
+        <header className="flex flex-wrap items-center justify-between gap-4">
           <nav className="flex items-center gap-2">
             <Link
               to="/"
@@ -23,28 +23,32 @@ export function DefaultLayout() {
               Pokedex
             </Link>
             <Link
-              to="#"
+              to="https://github.com/daniel-koti"
               className="text-sm font-medium text-muted-foreground hover:text-primary"
+              target="_blank"
             >
               Github
             </Link>
             <Link
-              to="#"
+              to="https://www.linkedin.com/in/daniel-moniz/"
               className="text-sm font-medium text-muted-foreground hover:text-primary"
-            >
-              Instagram
-            </Link>
-            <Link
-              to="#"
-              className="text-sm font-medium text-muted-foreground hover:text-primary"
-            >
-              Twitter
-            </Link>
-            <Link
-              to="#"
-              className="text-sm font-medium text-muted-foreground hover:text-primary"
+              target="_blank"
             >
               LinkedIn
+            </Link>
+            <Link
+              to="https://twitter.com/danie_koti"
+              className="text-sm font-medium text-muted-foreground hover:text-primary"
+              target="_blank"
+            >
+              X
+            </Link>
+            <Link
+              to="https://www.instagram.com/daniel_koti/"
+              className="text-sm font-medium text-muted-foreground hover:text-primary"
+              target="_blank"
+            >
+              Instagram
             </Link>
           </nav>
           <Switch checked={isDark} onCheckedChange={onToggleTheme} />
