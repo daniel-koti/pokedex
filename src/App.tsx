@@ -21,7 +21,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <PokemonProvider>
-        <ThemeContextProvider>
+        <ThemeContextProvider defaultTheme="system" storageKey="vite-ui-theme">
           <RouterProvider router={router} />
         </ThemeContextProvider>
       </PokemonProvider>

@@ -1,18 +1,11 @@
+import { ToggleTheme } from '@/components/toggle-theme'
 import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { useTheme } from '@/hooks/useTheme'
 
 import { Link, Outlet } from 'react-router-dom'
 
 export function DefaultLayout() {
-  const { isDark, onToggleTheme } = useTheme()
-
   return (
-    <section
-      className={`h-screen w-full overflow-auto bg-background px-4 py-8 ${
-        isDark ? 'dark' : ''
-      }`}
-    >
+    <section className="h-screen w-full overflow-auto bg-background px-4 py-8">
       <div className="mx-auto  max-w-7xl">
         <header className="flex flex-wrap items-center justify-between gap-4">
           <nav className="flex items-center gap-2">
@@ -51,7 +44,8 @@ export function DefaultLayout() {
               Instagram
             </Link>
           </nav>
-          <Switch checked={isDark} onCheckedChange={onToggleTheme} />
+
+          <ToggleTheme />
         </header>
 
         <Separator className="my-4" />

@@ -2,10 +2,10 @@ import { useContext } from 'react'
 import { ThemeContext } from '@/context/themeContext'
 
 export function useTheme() {
-  const { isDark, onToggleTheme } = useContext(ThemeContext)
+  const context = useContext(ThemeContext)
 
-  return {
-    isDark,
-    onToggleTheme,
-  }
+  if (context === undefined)
+    throw new Error('useTheme must be used within a ThemeProvider')
+
+  return context
 }

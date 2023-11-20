@@ -4,6 +4,15 @@ import { Pokemons } from './components/pokemons'
 import { Pokemon } from '@/components/pokemon'
 
 import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+} from '@/components/ui/select'
+import { orders } from '@/shared/orders'
 
 export function Home() {
   const [search, setSearch] = useState('')
@@ -17,7 +26,7 @@ export function Home() {
     <section className="flex flex-col items-start gap-8 md:flex-row">
       <aside className="w-full md:w-60">
         <strong className="inline-flex items-center gap-2 text-foreground ">
-          Filters
+          Search
         </strong>
 
         <div className="mt-8 space-y-2">
@@ -27,6 +36,24 @@ export function Home() {
             value={search}
             onChange={(event) => setSearch(event.target.value)}
           />
+        </div>
+
+        <div className="mt-4">
+          <span className="mb-4 block text-foreground">Order:</span>
+          <Select>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Order by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {orders.map((order) => (
+                  <SelectItem key={order.value} value={order.value}>
+                    {order.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </aside>
 
