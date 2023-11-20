@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { api } from '@/services/api'
 import { Pokemon as PokemonProps } from '@/shared/pokemon'
+import { Order } from '@/pages/home/components/pokemons'
+import { onOrderPokemons } from '@/utils/order'
 
 interface AxiosResponse {
   count: number
@@ -10,7 +12,7 @@ interface AxiosResponse {
 }
 
 export class Pokemon {
-  public async getPokemons(page: string) {
+  public async getPokemons(page: string, orderBy?: Order) {
     try {
       const { data } = await api.get<AxiosResponse>(
         `/pokemon?offset=${page}&limit=20`,
@@ -21,6 +23,17 @@ export class Pokemon {
       })
 
       const pokemons = await Promise.all<PokemonProps>(pokemonPromises)
+
+      if (orderBy && orderBy.length > 0) {
+        const orderedPokemons = onOrderPokemons(orderBy, pokemons)
+
+        return {
+          pokemons: orderedPokemons,
+          count: data.count,
+          previous: data.previous,
+          next: data.next,
+        }
+      }
 
       return {
         pokemons,

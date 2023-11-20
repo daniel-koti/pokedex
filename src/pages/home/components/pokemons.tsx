@@ -6,7 +6,13 @@ import { usePokemons } from '@/hooks/pokemons/usePokemons'
 import React, { useEffect } from 'react'
 import { CircleDashed } from 'lucide-react'
 
-export function Pokemons() {
+export type Order = 'higher' | 'heaviest' | 'lower' | 'lighter'
+
+interface PokemonsProps {
+  order?: Order
+}
+
+export function Pokemons({ order }: PokemonsProps) {
   const {
     data,
     isLoading,
@@ -14,7 +20,8 @@ export function Pokemons() {
     fetchNextPage,
     isFetchingNextPage,
     hasNextPage,
-  } = usePokemons()
+    refetch,
+  } = usePokemons(order)
 
   const { ref, inView } = useInView()
 
@@ -22,7 +29,17 @@ export function Pokemons() {
     if (inView) {
       fetchNextPage()
     }
-  }, [inView, fetchNextPage])
+
+    if (order && order.length > 0) {
+      refetch()
+    }
+  }, [inView, fetchNextPage, order, refetch])
+
+  useEffect(() => {
+    if (!order) {
+      refetch()
+    }
+  }, [order, refetch])
 
   return (
     <>
@@ -44,13 +61,13 @@ export function Pokemons() {
 
       <div className="mt-4">
         <span className="flex items-center gap-2 text-foreground" ref={ref}>
-          {isFetchingNextPage ? (
+          {isFetchingNextPage || !order ? (
             <>
               Loading more pokemons{' '}
               <CircleDashed className="h-5 w-5 animate-spin text-foreground" />
             </>
           ) : hasNextPage ? (
-            'Load pokemons'
+            ''
           ) : (
             'Nothing more to load'
           )}
