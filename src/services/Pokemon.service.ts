@@ -64,7 +64,6 @@ export class Pokemon {
         allPokemonsFounded,
       }
     } catch (error) {
-      console.log(error)
       return {
         allPokemonsFounded: [],
       }

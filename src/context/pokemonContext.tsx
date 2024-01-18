@@ -1,11 +1,11 @@
 import { ReactNode, createContext, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Pokemon as PokemonProps } from '@/shared/pokemon'
-import { Loading } from '@/components/loading'
 import { Pokemon } from '@/services/Pokemon.service'
 
 interface PokemonContextProps {
   allPokemons: PokemonProps[]
+  isLoading: boolean
   currentPokemon: PokemonProps | null
   updateCurrentPokemon: (pokemon: PokemonProps) => void
 }
@@ -29,18 +29,13 @@ export function PokemonProvider({ children }: { children: ReactNode }) {
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
 
-  if (isLoading) {
-    return <Loading />
-  }
-
-  if (error || !data) {
-    return <p>Error...</p>
-  }
+  const isLoadingFinished = !!(!isLoading && data && !error)
 
   return (
     <PokemonContext.Provider
       value={{
-        allPokemons: data.allPokemonsFounded,
+        isLoading,
+        allPokemons: isLoadingFinished ? data?.allPokemonsFounded : [],
         currentPokemon,
         updateCurrentPokemon,
       }}

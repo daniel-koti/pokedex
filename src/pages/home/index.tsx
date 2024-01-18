@@ -9,12 +9,14 @@ import { Badge } from '@/components/ui/badge'
 
 import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
 import { orders } from '@/shared/orders'
+import { SkeletonPokemon } from './components/skeleton'
+import { Loader2 } from 'lucide-react'
 
 export function Home() {
   const [search, setSearch] = useState('')
   const [order, setOrder] = useSearchParams('')
 
-  const { allPokemons } = useAllPokemons()
+  const { allPokemons, isLoadingGlobalPokemons } = useAllPokemons()
 
   const filteredPokemons = allPokemons.filter((pokemon) =>
     pokemon.name.includes(search),
@@ -84,19 +86,28 @@ export function Home() {
         </div>
       </aside>
 
-      <main className="w-full flex-1 ">
-        <strong className="text-foreground ">Pokemons</strong>
+      {isLoadingGlobalPokemons ? (
+        <div className="flex-1">
+          <strong className="inline-flex items-center text-foreground">
+            Pokemons <Loader2 className="ml-2 h-5 w-5 animate-spin" />
+          </strong>
+          <SkeletonPokemon />
+        </div>
+      ) : (
+        <main className="w-full flex-1 ">
+          <strong className="text-foreground ">Pokemons</strong>
 
-        {search.length <= 0 ? (
-          <Pokemons order={orderParam as Order} />
-        ) : (
-          <div className="sm:md-6 mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-            {filteredPokemons.map((pokemon) => (
-              <Pokemon key={pokemon.id} data={pokemon} />
-            ))}
-          </div>
-        )}
-      </main>
+          {search.length <= 0 ? (
+            <Pokemons order={orderParam as Order} />
+          ) : (
+            <div className="sm:md-6 mt-8 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+              {filteredPokemons.map((pokemon) => (
+                <Pokemon key={pokemon.id} data={pokemon} />
+              ))}
+            </div>
+          )}
+        </main>
+      )}
     </section>
   )
 }

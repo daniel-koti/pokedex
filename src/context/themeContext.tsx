@@ -13,11 +13,6 @@ interface ThemeProviderProps {
   storageKey?: string
 }
 
-// const initialState: ThemeContextProps = {
-//   theme: 'system',
-//   setTheme: () => null,
-// }
-
 export const ThemeContext = createContext({} as ThemeContextProps)
 
 export function ThemeContextProvider({
