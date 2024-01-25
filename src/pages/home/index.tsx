@@ -7,7 +7,7 @@ import { Pokemon } from '@/components/pokemon'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 
-import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
+import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
 import { orders } from '@/shared/orders'
 import { SkeletonPokemon } from './components/skeleton'
 import { Loader2 } from 'lucide-react'
@@ -16,7 +16,7 @@ export function Home() {
   const [search, setSearch] = useState('')
   const [order, setOrder] = useSearchParams('')
 
-  const { allPokemons, isLoadingGlobalPokemons } = useAllPokemons()
+  const { allPokemons, isLoadingGlobalPokemons } = useGlobalPokemons()
 
   const filteredPokemons = allPokemons.filter((pokemon) =>
     pokemon.name.includes(search),

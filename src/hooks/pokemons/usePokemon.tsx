@@ -1,11 +1,9 @@
-import { Pokemon } from '@/services/Pokemon.service'
+import { getPokemonByName } from '@/services/pokemons/get-pokemon-by-name.service'
 import { useQuery } from '@tanstack/react-query'
-
-const pokemon = new Pokemon()
 
 export function usePokemon(name: string) {
   return useQuery({
     queryKey: ['pokemon'],
-    queryFn: () => pokemon.getPokemon(name),
+    queryFn: () => getPokemonByName(name),
   })
 }

@@ -4,11 +4,11 @@ import { SkeletonDetails } from './components/skeleton'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Slider } from '@/components/ui/slider'
-import { useAllPokemons } from '@/hooks/pokemons/useAllPokemons'
+import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
 
 export function Details() {
   const { slug } = useParams()
-  const { currentPokemon } = useAllPokemons()
+  const { currentPokemon } = useGlobalPokemons()
 
   const { data, isFetching } = usePokemon(String(slug))
 

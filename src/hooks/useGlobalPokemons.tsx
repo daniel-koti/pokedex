@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { PokemonContext } from '@/context/pokemonContext'
 
-export function useAllPokemons() {
+export function useGlobalPokemons() {
   const { allPokemons, updateCurrentPokemon, currentPokemon, isLoading } =
     useContext(PokemonContext)
 

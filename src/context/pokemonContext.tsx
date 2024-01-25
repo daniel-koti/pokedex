@@ -1,7 +1,7 @@
 import { ReactNode, createContext, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Pokemon as PokemonProps } from '@/shared/pokemon'
-import { Pokemon } from '@/services/Pokemon.service'
+import { getGlobalPokemons } from '@/services/pokemons/get-global-pokemons.service'
 
 interface PokemonContextProps {
   allPokemons: PokemonProps[]
@@ -11,8 +11,6 @@ interface PokemonContextProps {
 }
 
 export const PokemonContext = createContext({} as PokemonContextProps)
-
-const pokemon = new Pokemon()
 
 export function PokemonProvider({ children }: { children: ReactNode }) {
   const [currentPokemon, setCurrentPokemon] = useState<PokemonProps | null>(
@@ -25,7 +23,7 @@ export function PokemonProvider({ children }: { children: ReactNode }) {
 
   const { data, error, isLoading } = useQuery({
     queryKey: ['all-pokemons'],
-    queryFn: pokemon.getAllPokemons,
+    queryFn: getGlobalPokemons,
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
 
