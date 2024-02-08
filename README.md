@@ -3,7 +3,7 @@
 Explore pokemons with different renders options
 
 <h1 align="center">
-  <img alt="Giant app" src=".github/print.png" />
+  <img alt="Pokedex app" src=".github/print.png" />
 </h1>
 
 ## 🚀 Features
