@@ -4,17 +4,14 @@ import { useSearchParams } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Order, Pokemons } from './components/pokemons'
 import { Pokemon } from '@/components/pokemon'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-
 import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
-import { orders } from '@/shared/orders'
 import { SkeletonPokemon } from './components/skeleton'
 import { Loader2 } from 'lucide-react'
+import { OrderBy } from './order-by'
 
 export function Home() {
   const [search, setSearch] = useState('')
-  const [order, setOrder] = useSearchParams('')
+  const [order] = useSearchParams('')
 
   const { allPokemons, isLoadingGlobalPokemons } = useGlobalPokemons()
 
@@ -23,17 +20,6 @@ export function Home() {
   )
 
   const orderParam = order.get('order')
-
-  function handleOrderBy(param: string) {
-    setOrder({ order: param })
-  }
-
-  function clearParams() {
-    setOrder((params) => {
-      params.delete('order')
-      return params
-    })
-  }
 
   return (
     <section className="flex flex-col items-start gap-8 md:flex-row">
@@ -51,39 +37,7 @@ export function Home() {
           />
         </div>
 
-        <div className="mt-4">
-          <span className="mb-4 block text-foreground">Order by:</span>
-
-          <div className="flex flex-col gap-2">
-            <div className="block">
-              {order.size > 0 && (
-                <Badge variant="outline" className="relative">
-                  {orderParam}{' '}
-                  <button
-                    onClick={clearParams}
-                    className="absolute right-[-8px] top-[-8px] flex h-4 w-4 items-center justify-center rounded-full border text-[8px]"
-                  >
-                    X
-                  </button>
-                </Badge>
-              )}
-            </div>
-
-            <div className="flex gap-2 md:flex-col">
-              {orders.map((order) => (
-                <Button
-                  variant="link"
-                  className="justify-start p-0"
-                  key={order.value}
-                  value={order.value}
-                  onClick={() => handleOrderBy(order.value)}
-                >
-                  {order.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <OrderBy />
       </aside>
 
       {isLoadingGlobalPokemons ? (
