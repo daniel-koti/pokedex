@@ -1,4 +1,4 @@
-import { PokemonContext } from '@/context/pokemonContext'
+import { PokemonContext } from '@/context/pokemon-context'
 import { useContext } from 'react'
 
 export function useCurrentPokemon() {
