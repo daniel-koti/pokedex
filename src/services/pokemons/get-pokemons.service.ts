@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AxiosResponse, api } from '../api'
 import { onOrderPokemons } from '@/utils/order'
 import { Pokemon as PokemonProps } from '@/shared/pokemon'
-import { Order } from '@/pages/home/components/pokemons'
+import { Order } from '@/pages/home/pokemons'
 
 export async function getPokemons(page: string, orderBy?: Order) {
   try {

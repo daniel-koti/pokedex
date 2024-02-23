@@ -4,7 +4,7 @@ import { Pokemon as PokeProps } from '@/shared/pokemon'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
-import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
+import { useCurrentPokemon } from '@/hooks/use-current-pokemon'
 
 interface PokemonProps {
   data: PokeProps
@@ -12,10 +12,10 @@ interface PokemonProps {
 
 export function Pokemon({ data }: PokemonProps) {
   const navigate = useNavigate()
-  const { updateCurrentPokemon } = useGlobalPokemons()
+  const { onUpdateCurrentPokemon } = useCurrentPokemon()
 
   function handleNavigateToDetail(pokemonName: string) {
-    updateCurrentPokemon(data)
+    onUpdateCurrentPokemon(data)
     navigate(`/details/${pokemonName}`)
   }
 

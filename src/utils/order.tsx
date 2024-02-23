@@ -1,4 +1,4 @@
-import { Order } from '@/pages/home/components/pokemons'
+import { Order } from '@/pages/home/pokemons'
 import { Pokemon } from '@/shared/pokemon'
 
 export function onOrderPokemons(type: Order, pokemons: Pokemon[]) {

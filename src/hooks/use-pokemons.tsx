@@ -1,4 +1,4 @@
-import { Order } from '@/pages/home/components/pokemons'
+import { Order } from '@/pages/home/pokemons'
 import { getPokemons } from '@/services/pokemons/get-pokemons.service'
 import { getOffset } from '@/utils/getOffset'
 import { useInfiniteQuery } from '@tanstack/react-query'

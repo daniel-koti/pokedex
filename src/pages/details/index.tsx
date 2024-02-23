@@ -1,14 +1,14 @@
-import { usePokemon } from '@/hooks/pokemons/usePokemon'
 import { useParams } from 'react-router-dom'
+import { usePokemon } from '@/hooks/use-pokemon'
 import { SkeletonDetails } from './components/skeleton'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { Slider } from '@/components/ui/slider'
-import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
+import { useCurrentPokemon } from '@/hooks/use-current-pokemon'
 
 export function Details() {
   const { slug } = useParams()
-  const { currentPokemon } = useGlobalPokemons()
+  const { currentPokemon } = useCurrentPokemon()
 
   const { data, isFetching } = usePokemon(String(slug))
 

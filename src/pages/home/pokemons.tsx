@@ -2,7 +2,7 @@ import { useInView } from 'react-intersection-observer'
 import { Pokemon } from '@/components/pokemon'
 
 import { SkeletonPokemon } from './skeleton'
-import { usePokemons } from '@/hooks/pokemons/usePokemons'
+import { usePokemons } from '@/hooks/use-pokemons'
 import React, { useEffect } from 'react'
 import { CircleDashed } from 'lucide-react'
 

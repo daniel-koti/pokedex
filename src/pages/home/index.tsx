@@ -2,24 +2,26 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Input } from '@/components/ui/input'
-import { Order, Pokemons } from './components/pokemons'
+import { Order, Pokemons } from './pokemons'
 import { Pokemon } from '@/components/pokemon'
-import { useGlobalPokemons } from '@/hooks/useGlobalPokemons'
-import { SkeletonPokemon } from './components/skeleton'
-import { Loader2 } from 'lucide-react'
+import { useGlobalPokemons } from '@/hooks/use-global-pokemons'
 import { OrderBy } from './order-by'
+import { LoadingHome } from './loading-home'
 
 export function Home() {
   const [search, setSearch] = useState('')
   const [order] = useSearchParams('')
 
-  const { allPokemons, isLoadingGlobalPokemons } = useGlobalPokemons()
-
-  const filteredPokemons = allPokemons.filter((pokemon) =>
-    pokemon.name.includes(search),
-  )
-
   const orderParam = order.get('order')
+
+  const { data, isLoading, error } = useGlobalPokemons()
+
+  const filteredPokemons =
+    data && !isLoading && !error
+      ? data.allPokemonsFounded.filter((pokemon) =>
+          pokemon.name.includes(search),
+        )
+      : []
 
   return (
     <section className="flex flex-col items-start gap-8 md:flex-row">
@@ -40,16 +42,11 @@ export function Home() {
         <OrderBy />
       </aside>
 
-      {isLoadingGlobalPokemons ? (
-        <div className="flex-1">
-          <strong className="inline-flex items-center text-foreground">
-            Pokemons <Loader2 className="ml-2 h-5 w-5 animate-spin" />
-          </strong>
-          <SkeletonPokemon />
-        </div>
+      {isLoading && search.length >= 0 ? (
+        <LoadingHome />
       ) : (
         <main className="w-full flex-1 ">
-          <strong className="text-foreground ">Pokemons</strong>
+          <strong className="text-foreground">Pokemons</strong>
 
           {search.length <= 0 ? (
             <Pokemons order={orderParam as Order} />
