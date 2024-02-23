@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { AxiosResponse, api } from '../api'
-import { Pokemon as PokemonProps } from '@/shared/pokemon'
+import { Pokemon } from '@/shared/pokemon'
 
 export async function getGlobalPokemons() {
   try {
@@ -10,7 +10,7 @@ export async function getGlobalPokemons() {
       return axios.get(pokemon.url).then((response) => response.data)
     })
 
-    const allPokemonsFounded = await Promise.all<PokemonProps>(pokemonsPromise)
+    const allPokemonsFounded = await Promise.all<Pokemon>(pokemonsPromise)
 
     return {
       allPokemonsFounded,
